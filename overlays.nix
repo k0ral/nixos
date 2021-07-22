@@ -1,7 +1,7 @@
 self: super:
 
 {
-  nerdfonts = super.nerdfonts.override { fonts = [ "FiraCode" ]; };
+  nerdfonts = super.nerdfonts.override { fonts = [ "VictorMono" ]; };
 
   pulseaudio = super.pulseaudio.override {
     bluetoothSupport = true;
