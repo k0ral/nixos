@@ -100,6 +100,17 @@
   };
 
   security.pam.services.sddm.enableGnomeKeyring = true;
+  security.polkit.extraConfig = ''
+    // Allow udisks2 to mount devices without authentication
+    // for users in the "wheel" group.
+    polkit.addRule(function(action, subject) {
+        if ((action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
+             action.id == "org.freedesktop.udisks2.filesystem-mount") &&
+            subject.isInGroup("wheel")) {
+            return polkit.Result.YES;
+        }
+    });
+  '';
 
   system.autoUpgrade.enable = false;
 
@@ -107,9 +118,19 @@
 
   users.extraUsers.koral = {
     createHome = true;
-    extraGroups = [ "adbusers" "audio" "wheel" "sway" ];
+    extraGroups = [ "adbusers" "aria2" "audio" "docker" "wheel" "sway" ];
     isNormalUser = true;
     shell = pkgs.fish;
     uid = 1000;
+  };
+
+  virtualisation.docker.enable = true;
+
+  xdg = {
+    icons.enable = true;
+    # portal.enable = true;
+    # portal.gtkUsePortal = true;
+    # portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
+    # portal.wlr.enable = true;
   };
 }
