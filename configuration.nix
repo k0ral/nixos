@@ -74,8 +74,6 @@
   };
 
   nix = {
-    autoOptimiseStore = true;
-    binaryCaches = [ "https://cache.nixos.org/" ];
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -86,8 +84,12 @@
     };
     nixPath = [ "nixpkgs=/home/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "home-manager=/home/home-manager" ];
     package = pkgs.nixFlakes;
-    trustedUsers = [ "@wheel" ];
-    useSandbox = true;
+    settings = {
+      auto-optimise-store = true;
+      sandbox = true;
+      substituters = [ "https://cache.nixos.org/" ];
+      trusted-users = [ "@wheel" ];
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
