@@ -98,7 +98,6 @@
 
   powerManagement = {
     cpuFreqGovernor = "powersave";
-    powertop.enable = true;
   };
 
   security.pam.services.sddm.enableGnomeKeyring = true;
