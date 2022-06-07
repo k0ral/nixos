@@ -13,12 +13,14 @@
 
   environment.variables = {
     BEMENU_BACKEND = "wayland";
-    BROWSER = "brave";
+    BROWSER = "firefox";
     EDITOR = "nvim";
     FZF_DEFAULT_COMMAND = "fd --type f";
     MOZ_ENABLE_WAYLAND = "1";
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    XDG_CURRENT_DESKTOP = "sway";
+    XDG_SESSION_TYPE = "wayland";
   };
 
   environment.etc."sysconfig/lm_sensors".text = ''
@@ -33,6 +35,7 @@
       corefonts # Microsoft free fonts
       # encode-sans
       font-awesome
+      libre-baskerville
       nerdfonts
       # noto-fonts
       # google-fonts
@@ -47,14 +50,20 @@
 
   hardware = {
     bluetooth.enable = true;
+    bluetooth.settings = { General = { UserspaceHID = true; }; };
 
     opengl = {
+      enable = true;
       driSupport = true;
       driSupport32Bit = true;
     };
 
     pulseaudio = {
       enable = true;
+      # extraConfig = ''
+      #   set-card-profile 0 output:hdmi-stereo
+      # '';
+      package = pkgs.pulseaudioFull;
       support32Bit = true;
       tcp.enable = true;
       tcp.anonymousClients.allowAll = true;
@@ -66,7 +75,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   networking = {
-    firewall.allowedTCPPorts = [ 873 6600 ];
+    firewall.allowedTCPPorts = [ 873 6600 8880 9090 30000 ];
     enableIPv6 = true;
     hostId = "01ed4135";
     hostName = "mystix";
@@ -94,7 +103,9 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.pulseaudio = true;
-  nixpkgs.overlays = [ (import ./overlays.nix) ];
+  nixpkgs.overlays = [(self: super: {
+    nerdfonts = super.nerdfonts.override { fonts = [ "VictorMono" ]; };
+  })];
 
   powerManagement = {
     cpuFreqGovernor = "powersave";

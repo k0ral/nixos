@@ -28,13 +28,15 @@
     };
   };
 
+  services.dbus.packages = with pkgs; [ dconf ];
+
   services.dnsmasq = {
     enable = true;
     servers = config.networking.nameservers;
   };
 
-  services.gnome3 = {
-    evolution-data-server.enable = true;
+  services.gnome = {
+    # evolution-data-server.enable = true;
     gnome-online-accounts.enable = true;
     gnome-keyring.enable = true;
   };
@@ -56,7 +58,7 @@
     enable = true;
     openDefaultPorts = true;
     systemService = true;
-    declarative.folders = {
+    folders = {
       "/home/music" = {
         id = "music";
         type = "sendonly";
