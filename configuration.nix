@@ -112,6 +112,7 @@
   };
 
   security.pam.services.sddm.enableGnomeKeyring = true;
+  security.pam.services.swaylock = {};
   security.polkit.extraConfig = ''
     // Allow udisks2 to mount devices without authentication
     // for users in the "wheel" group.
