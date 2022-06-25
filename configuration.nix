@@ -3,7 +3,7 @@
 
   boot = {
     cleanTmpDir = true;
-    kernelModules = [ "coretemp" ];
+    kernelModules = [ "coretemp" "k10temp" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = false;
     supportedFilesystems = [ "zfs" ];
@@ -108,7 +108,7 @@
   })];
 
   powerManagement = {
-    cpuFreqGovernor = "powersave";
+    cpuFreqGovernor = "ondemand";
   };
 
   security.pam.services.sddm.enableGnomeKeyring = true;
