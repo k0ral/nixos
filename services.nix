@@ -53,19 +53,6 @@
   services.openssh.startWhenNeeded = true;
   services.privoxy.enable = true;
   services.smartd.enable = true;
-
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-    systemService = true;
-    folders = {
-      "/home/music" = {
-        id = "music";
-        type = "sendonly";
-      };
-    };
-  };
-
   services.thermald.enable = true;
   services.tlp.enable = true;
   services.udisks2.enable = true;
