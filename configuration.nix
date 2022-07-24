@@ -75,7 +75,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   networking = {
-    firewall.allowedTCPPorts = [ 873 6600 8880 9090 30000 ];
+    firewall.allowedTCPPorts = [ 873 6600 8880 9090 15000 ];
     enableIPv6 = true;
     hostId = "01ed4135";
     hostName = "mystix";
